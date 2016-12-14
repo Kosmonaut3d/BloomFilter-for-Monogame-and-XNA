@@ -32,12 +32,15 @@ namespace Bloom_Sample
         private bool _halfRes = false;
         private float _avgFps = 0;
 
+        private bool _isActiveWindow = true;
+
         private Texture2D _sampleImage;
 
         private SpriteFont _defaultSpriteFont;
         private StringBuilder _infoString;
 
         private BloomFilter _bloomFilter;
+
 
         public Game1()
         {
@@ -48,9 +51,13 @@ namespace Bloom_Sample
 
             //Frametime not limited to 16.66 Hz / 60 FPS
             IsFixedTimeStep = false;
-            Graphics.SynchronizeWithVerticalRetrace = false;
+            Graphics.SynchronizeWithVerticalRetrace = true;
             Graphics.GraphicsProfile = GraphicsProfile.HiDef;
             IsMouseVisible = true;
+
+            //Active window?
+            Activated += IsActivated;
+            Deactivated += IsDeactivated;
         }
         
         /// <summary>
@@ -90,6 +97,7 @@ namespace Bloom_Sample
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (!_isActiveWindow) return;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             KeyboardState state = Keyboard.GetState();
@@ -137,6 +145,7 @@ namespace Bloom_Sample
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            if (!_isActiveWindow) return;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             int w = _width;
@@ -168,6 +177,17 @@ namespace Bloom_Sample
 
 
             base.Draw(gameTime);
+        }
+
+
+        private void IsDeactivated(object sender, EventArgs e)
+        {
+            _isActiveWindow = false;
+        }
+
+        private void IsActivated(object sender, EventArgs e)
+        {
+            _isActiveWindow = true;
         }
     }
 }

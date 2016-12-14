@@ -274,17 +274,17 @@ namespace Bloom_Sample
                         _bloomStrength4 = 1;
                         _bloomStrength5 = 2;
                         _bloomRadius5 = 4.0f;
-                        _bloomRadius4 = 2.0f;
+                        _bloomRadius4 = 4.0f;
                         _bloomRadius3 = 2.0f;
                         _bloomRadius2 = 2.0f;
-                        _bloomRadius1 = 2.0f;
+                        _bloomRadius1 = 1.0f;
                         BloomStreakLength = 1;
                         BloomDownsamplePasses = 5;
                         break;
                 }
                 case BloomPresets.SuperWide:
                     {
-                        _bloomStrength1 = 0.8f;
+                        _bloomStrength1 = 0.9f;
                         _bloomStrength2 = 1;
                         _bloomStrength3 = 1;
                         _bloomStrength4 = 2;
