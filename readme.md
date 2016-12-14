@@ -8,6 +8,7 @@ For the effect itself you only need the BloomFilter.cs and Shaders/BloomFilter/B
 This is a Windows desktop build, with DirectX. 
 I presume it works for OpenGL, too, but you would have to change the shader model from 4_0 to a lower version.
 
+![Alt text](http://i.imgur.com/jV6DWB5.png "Sample Application")
  
     High-Quality Bloom filter for high-performance applications
 
