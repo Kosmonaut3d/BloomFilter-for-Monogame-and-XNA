@@ -6,7 +6,7 @@ sampler u_texture = sampler_state
 };
 
 float2 InverseResolution;
-float Threshold = 0.2f;
+float Threshold = 0.8f;
 float Radius = 1.0f;
 float Strength = 1.0f;
 float StreakLength = 1;
