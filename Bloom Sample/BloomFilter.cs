@@ -254,8 +254,6 @@ namespace Bloom_Sample
 
             //Default threshold.
             BloomThreshold = 0.8f;
-
-            BloomUseLuminance
             //Setup the default preset values.
             SetBloomPreset(BloomPreset);
         }
