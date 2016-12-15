@@ -71,7 +71,6 @@ namespace Bloom_Sample
         private EffectPass _bloomPassExtract;
         private EffectPass _bloomPassExtractLuminance;
         private EffectPass _bloomPassDownsample;
-        private EffectPass _bloomPassDownsampleLuminance;
         private EffectPass _bloomPassUpsample;
         private EffectPass _bloomPassUpsampleLuminance;
 
@@ -242,7 +241,6 @@ namespace Bloom_Sample
             _bloomPassExtract = _bloomEffect.Techniques["Extract"].Passes[0];
             _bloomPassExtractLuminance = _bloomEffect.Techniques["ExtractLuminance"].Passes[0];
             _bloomPassDownsample = _bloomEffect.Techniques["Downsample"].Passes[0];
-            _bloomPassDownsampleLuminance = _bloomEffect.Techniques["DownsampleLuminance"].Passes[0];
             _bloomPassUpsample = _bloomEffect.Techniques["Upsample"].Passes[0];
             _bloomPassUpsampleLuminance = _bloomEffect.Techniques["UpsampleLuminance"].Passes[0];
             
@@ -256,7 +254,7 @@ namespace Bloom_Sample
             //Default threshold.
             BloomThreshold = 0.8f;
             //Setup the default preset values.
-            BloomPreset = BloomPresets.Wide;
+            //BloomPreset = BloomPresets.One;
             SetBloomPreset(BloomPreset);
         }
 
@@ -412,8 +410,7 @@ namespace Bloom_Sample
 
                 BloomScreenTexture = _bloomRenderTarget2DMip0;
                 //Pass
-                if (BloomUseLuminance) _bloomPassDownsampleLuminance.Apply();
-                else _bloomPassDownsample.Apply();
+                _bloomPassDownsample.Apply();
                 _quadRenderer.RenderQuad(_graphicsDevice, Vector2.One * -1, Vector2.One);
 
                 if (BloomDownsamplePasses > 1)
@@ -426,8 +423,7 @@ namespace Bloom_Sample
 
                     BloomScreenTexture = _bloomRenderTarget2DMip1;
                     //Pass
-                    if (BloomUseLuminance) _bloomPassDownsampleLuminance.Apply();
-                    else _bloomPassDownsample.Apply();
+                    _bloomPassDownsample.Apply();
                     _quadRenderer.RenderQuad(_graphicsDevice, Vector2.One * -1, Vector2.One);
 
                     if (BloomDownsamplePasses > 2)
@@ -439,8 +435,7 @@ namespace Bloom_Sample
 
                         BloomScreenTexture = _bloomRenderTarget2DMip2;
                         //Pass
-                        if (BloomUseLuminance) _bloomPassDownsampleLuminance.Apply();
-                        else _bloomPassDownsample.Apply();
+                        _bloomPassDownsample.Apply();
                         _quadRenderer.RenderQuad(_graphicsDevice, Vector2.One * -1, Vector2.One);
                         
                         if (BloomDownsamplePasses > 3)
@@ -452,8 +447,7 @@ namespace Bloom_Sample
 
                             BloomScreenTexture = _bloomRenderTarget2DMip3;
                             //Pass
-                            if (BloomUseLuminance) _bloomPassDownsampleLuminance.Apply();
-                            else _bloomPassDownsample.Apply();
+                            _bloomPassDownsample.Apply();
                             _quadRenderer.RenderQuad(_graphicsDevice, Vector2.One * -1, Vector2.One);
 
                             if (BloomDownsamplePasses > 4)
@@ -465,8 +459,7 @@ namespace Bloom_Sample
 
                                 BloomScreenTexture = _bloomRenderTarget2DMip4;
                                 //Pass
-                                if (BloomUseLuminance) _bloomPassDownsampleLuminance.Apply();
-                                else _bloomPassDownsample.Apply();
+                                _bloomPassDownsample.Apply();
                                 _quadRenderer.RenderQuad(_graphicsDevice, Vector2.One * -1, Vector2.One);
 
                                 ChangeBlendState();
@@ -573,22 +566,22 @@ namespace Bloom_Sample
 
             _bloomRenderTarget2DMip0 = new RenderTarget2D(_graphicsDevice,
                 (int) (width),
-                (int) (height), false, SurfaceFormat.HalfVector4, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+                (int) (height), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
             _bloomRenderTarget2DMip1 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/2),
-                (int) (height/2), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/2), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip2 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/4),
-                (int) (height/4), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/4), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip3 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/8),
-                (int) (height/8), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/8), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip4 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/16),
-                (int) (height/16), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/16), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip5 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/32),
-                (int) (height/32), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/32), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
         }
 
         /// <summary>
