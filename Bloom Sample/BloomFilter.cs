@@ -573,7 +573,7 @@ namespace Bloom_Sample
 
             _bloomRenderTarget2DMip0 = new RenderTarget2D(_graphicsDevice,
                 (int) (width),
-                (int) (height), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+                (int) (height), false, SurfaceFormat.HalfVector4, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
             _bloomRenderTarget2DMip1 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/2),
                 (int) (height/2), false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);

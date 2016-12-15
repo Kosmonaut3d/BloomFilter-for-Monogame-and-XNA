@@ -1,12 +1,15 @@
 ﻿
-texture2D ScreenTexture;
-sampler u_texture = sampler_state
+Texture2D ScreenTexture;
+SamplerState u_texture
 {
     Texture = <ScreenTexture>; 
 
 	MagFilter = LINEAR;
 	MinFilter = LINEAR;
 	Mipfilter = LINEAR;
+
+	AddressU = CLAMP;
+	AddressV = CLAMP;
 };
 
 float2 InverseResolution;
