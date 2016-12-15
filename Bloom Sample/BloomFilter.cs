@@ -112,7 +112,8 @@ namespace Bloom_Sample
             Focussed,
             Small,
             SuperWide,
-            Cheap
+            Cheap,
+            One
         };
 
         #endregion
@@ -255,6 +256,7 @@ namespace Bloom_Sample
             //Default threshold.
             BloomThreshold = 0.8f;
             //Setup the default preset values.
+            BloomPreset = BloomPresets.Wide;
             SetBloomPreset(BloomPreset);
         }
 
@@ -338,6 +340,22 @@ namespace Bloom_Sample
                         _bloomRadius1 = 2;
                         BloomStreakLength = 1;
                         BloomDownsamplePasses = 2;
+                        break;
+                    }
+                case BloomPresets.One:
+                    {
+                        _bloomStrength1 = 4f;
+                        _bloomStrength2 = 1;
+                        _bloomStrength3 = 1;
+                        _bloomStrength4 = 1;
+                        _bloomStrength5 = 2;
+                        _bloomRadius5 = 1.0f;
+                        _bloomRadius4 = 1.0f;
+                        _bloomRadius3 = 1.0f;
+                        _bloomRadius2 = 1.0f;
+                        _bloomRadius1 = 1.0f;
+                        BloomStreakLength = 1;
+                        BloomDownsamplePasses = 5;
                         break;
                     }
             }
@@ -452,7 +470,7 @@ namespace Bloom_Sample
                                 _quadRenderer.RenderQuad(_graphicsDevice, Vector2.One * -1, Vector2.One);
 
                                 ChangeBlendState();
-
+                                
                                 //UPSAMPLE TO MIP4
                                 _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip4);
                                 BloomScreenTexture = _bloomRenderTarget2DMip5;

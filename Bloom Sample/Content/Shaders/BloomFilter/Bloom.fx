@@ -3,6 +3,10 @@ texture2D ScreenTexture;
 sampler u_texture = sampler_state
 {
     Texture = <ScreenTexture>; 
+
+	MagFilter = LINEAR;
+	MinFilter = LINEAR;
+	Mipfilter = LINEAR;
 };
 
 float2 InverseResolution;
@@ -96,9 +100,9 @@ float4 DownsampleLuminancePS(float4 pos : SV_POSITION,  float2 texCoord : TEXCOO
 
 	float4 c6 = tex2D(u_texture, texCoord);
 
-	float luminance = c6.r * 0.21f + c6.g * 0.72f + c6.b * 0.07f;
-	luminance = max(luminance, 0.4f);
-	float2 offset = float2(StreakLength * InverseResolution.x, 1 * InverseResolution.y) / luminance;
+	/*float luminance = c6.r * 0.21f + c6.g * 0.72f + c6.b * 0.07f;
+	luminance = max(luminance, 0.4f);*/
+	float2 offset = float2(StreakLength * InverseResolution.x, 1 * InverseResolution.y); // / luminance;
 
 	float4 c0 = tex2D(u_texture, texCoord + float2(-2, -2) * offset);
 	float4 c1 = tex2D(u_texture, texCoord + float2(0, -2) * offset);
@@ -145,10 +149,10 @@ float4 UpsampleLuminancePS(float4 pos : SV_POSITION,  float2 texCoord : TEXCOORD
 {
     float4 c4 = tex2D(u_texture, texCoord);  //middle one
  
-    float luminance = c4.r * 0.21f + c4.g * 0.72f + c4.b * 0.07f;
+    /*float luminance = c4.r * 0.21f + c4.g * 0.72f + c4.b * 0.07f;
     luminance = max(luminance, 0.4f);
-
-    float2 offset = float2(StreakLength * InverseResolution.x, 1 * InverseResolution.y) * Radius / luminance;
+*/
+	float2 offset = float2(StreakLength * InverseResolution.x, 1 * InverseResolution.y) * Radius; /// luminance;
 
     float4 c0 = tex2D(u_texture, texCoord + float2(-1, -1) * offset);
     float4 c1 = tex2D(u_texture, texCoord + float2(0, -1) * offset);
