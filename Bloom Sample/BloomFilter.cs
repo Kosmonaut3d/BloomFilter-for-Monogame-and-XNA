@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Bloom_Sample
 {
     /// <summary>
+    /// 
+    /// Version 1.1, 16. Dez. 2016
+    /// 
     /// Bloom / Blur, 2016 TheKosmonaut
     /// 
     /// High-Quality Bloom filter for high-performance applications
@@ -60,6 +63,8 @@ namespace Bloom_Sample
         private RenderTarget2D _bloomRenderTarget2DMip3;
         private RenderTarget2D _bloomRenderTarget2DMip4;
         private RenderTarget2D _bloomRenderTarget2DMip5;
+
+        private SurfaceFormat _renderTargetFormat;
 
         //Objects
         private GraphicsDevice _graphicsDevice;
@@ -213,6 +218,7 @@ namespace Bloom_Sample
         #endregion
 
         #region initialize
+
         /// <summary>
         /// Loads all needed components for the BloomEffect. This effect won't work without calling load
         /// </summary>
@@ -220,14 +226,17 @@ namespace Bloom_Sample
         /// <param name="content"></param>
         /// <param name="width">initial value for creating the rendertargets</param>
         /// <param name="height">initial value for creating the rendertargets</param>
+        /// <param name="renderTargetFormat">The intended format for the rendertargets. For normal, non-hdr, applications color or rgba1010102 are fine.</param>
         /// <param name="quadRenderer">if you already have quadRenderer you may reuse it here</param>
-        public void Load(GraphicsDevice graphicsDevice, ContentManager content, int width, int height, QuadRenderer quadRenderer = null)
+        public void Load(GraphicsDevice graphicsDevice, ContentManager content, int width, int height, SurfaceFormat renderTargetFormat = SurfaceFormat.Rgba1010102,  QuadRenderer quadRenderer = null)
         {
             _graphicsDevice = graphicsDevice;
             UpdateResolution(width, height);
     
             //if quadRenderer == null -> new, otherwise not
             _quadRenderer = quadRenderer ?? new QuadRenderer(graphicsDevice);
+
+            _renderTargetFormat = renderTargetFormat;
 
             //Load the shader parameters and passes for cheap and easy access
             _bloomEffect = content.Load<Effect>("Shaders/BloomFilter/Bloom");
@@ -243,7 +252,7 @@ namespace Bloom_Sample
             _bloomPassDownsample = _bloomEffect.Techniques["Downsample"].Passes[0];
             _bloomPassUpsample = _bloomEffect.Techniques["Upsample"].Passes[0];
             _bloomPassUpsampleLuminance = _bloomEffect.Techniques["UpsampleLuminance"].Passes[0];
-            
+
             //An interesting blendstate for merging the initial image with the bloom.
             //BlendStateBloom = new BlendState();
             //BlendStateBloom.ColorBlendFunction = BlendFunction.Add;
@@ -566,22 +575,22 @@ namespace Bloom_Sample
 
             _bloomRenderTarget2DMip0 = new RenderTarget2D(_graphicsDevice,
                 (int) (width),
-                (int) (height), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+                (int) (height), false, _renderTargetFormat, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
             _bloomRenderTarget2DMip1 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/2),
-                (int) (height/2), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/2), false, _renderTargetFormat, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip2 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/4),
-                (int) (height/4), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/4), false, _renderTargetFormat, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip3 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/8),
-                (int) (height/8), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/8), false, _renderTargetFormat, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip4 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/16),
-                (int) (height/16), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/16), false, _renderTargetFormat, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
             _bloomRenderTarget2DMip5 = new RenderTarget2D(_graphicsDevice,
                 (int) (width/32),
-                (int) (height/32), false, SurfaceFormat.Rgba1010102, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+                (int) (height/32), false, _renderTargetFormat, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
         }
 
         /// <summary>
