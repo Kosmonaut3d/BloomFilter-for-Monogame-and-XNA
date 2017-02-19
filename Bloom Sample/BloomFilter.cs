@@ -245,7 +245,17 @@ namespace Bloom_Sample
             _bloomStrengthParameter = _bloomEffect.Parameters["Strength"];
             _bloomStreakLengthParameter = _bloomEffect.Parameters["StreakLength"];
             _bloomThresholdParameter = _bloomEffect.Parameters["Threshold"];
+
+            //For DirectX / Windows
             _bloomParameterScreenTexture = _bloomEffect.Parameters["ScreenTexture"];
+
+            //If we are on OpenGL it's different, load the other one then!
+
+            if (_bloomParameterScreenTexture == null)
+            {
+                //for OpenGL / CrossPlatform
+                _bloomParameterScreenTexture = _bloomEffect.Parameters["LinearSampler+ScreenTexture"];
+            }
 
             _bloomPassExtract = _bloomEffect.Techniques["Extract"].Passes[0];
             _bloomPassExtractLuminance = _bloomEffect.Techniques["ExtractLuminance"].Passes[0];
