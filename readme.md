@@ -6,7 +6,15 @@ Included is a sample solution, which shows the basic setup and how the integrati
 
 For the effect itself you only need the BloomFilter.cs and Shaders/BloomFilter/Bloom.fx files. 
 This is a Windows desktop build, with DirectX. 
-I presume it works for OpenGL, too, but you would have to change the shader model from 4_0 to a lower version.
+
+#OpenGL
+If you want to make this work with OpenGL you have to change 2 things.
+
+In BloomFilter.cs change line 243 to
+_bloomParameterScreenTexture = _bloomEffect.Parameters["LinearSampler+ScreenTexture"];
+
+And change all
+"4_0" to "3_0" in the bloom.fx file found in shaders/bloomfilter/bloom.fx to have an appropriate shader level that works with OpenGL / Crossplatform.
 
 The default rendertargets are of Format.Color, but if you do HDR or fp16 in general you should switch them up to fp16, too.
 
