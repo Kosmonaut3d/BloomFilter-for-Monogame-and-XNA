@@ -16,6 +16,8 @@ _bloomParameterScreenTexture = _bloomEffect.Parameters["LinearSampler+ScreenText
 And change all
 "4_0" to "3_0" in the bloom.fx file found in shaders/bloomfilter/bloom.fx to have an appropriate shader level that works with OpenGL / Crossplatform.
 
+#Description
+
 The default rendertargets are of Format.Color, but if you do HDR or fp16 in general you should switch them up to fp16, too.
 
 ![Alt text](http://i.imgur.com/jV6DWB5.png "Sample Application")
