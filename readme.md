@@ -8,13 +8,8 @@ For the effect itself you only need the BloomFilter.cs and Shaders/BloomFilter/B
 This is a Windows desktop build, with DirectX. 
 
 #OpenGL
-If you want to make this work with OpenGL you have to change 2 things.
-
-In BloomFilter.cs change line 243 to
-_bloomParameterScreenTexture = _bloomEffect.Parameters["LinearSampler+ScreenTexture"];
-
-And change all
-"4_0" to "3_0" in the bloom.fx file found in shaders/bloomfilter/bloom.fx to have an appropriate shader level that works with OpenGL / Crossplatform.
+I have added and tested Crossplatform and it should work without many problems (hopefully) now. Instead of using the default directx shaders we have to switch to OpenGL shaders. 
+In shaders/bloomfilter/ there is a different .fx file called bloomCrossPlatform.fx If you rename that one to bloom.fx it should work.
 
 #Description
 
