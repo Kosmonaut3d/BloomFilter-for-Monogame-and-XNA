@@ -71,12 +71,13 @@ namespace Bloom_Sample
 
             _sampleImage = Content.Load<Texture2D>("sample");
             _defaultSpriteFont = Content.Load<SpriteFont>("arial");
-            _infoString = new StringBuilder("Use F1 - F8 for settings and left mouse button + drag for bloom threshold");
+            _infoString = new StringBuilder("Use F1 - F8 for settings and left mouse button + drag for bloom threshold / strength");
 
             //Load our Bloomfilter!
             _bloomFilter = new BloomFilter();
             _bloomFilter.Load(GraphicsDevice, Content, _width, _height);
 
+            _bloomFilter.BloomPreset = BloomFilter.BloomPresets.SuperWide;
 
         }
 
@@ -119,6 +120,13 @@ namespace Bloom_Sample
             {
                 float x = (float) mstate.X/Window.ClientBounds.Width;
                 _bloomFilter.BloomThreshold = x;
+
+                float y = (float)mstate.Y / Window.ClientBounds.Height * 2;
+
+                //clamp
+                
+                _bloomFilter.BloomThreshold = x;
+                _bloomFilter.BloomStrengthMultiplier = y;
             }
             
             float fps = (float) Math.Round(1000 / gameTime.ElapsedGameTime.TotalMilliseconds, 1);
@@ -132,6 +140,7 @@ namespace Bloom_Sample
             Window.Title = "BloomFilter Preset: " + _bloomFilter.BloomPreset +
                            " with " + _bloomFilter.BloomDownsamplePasses +
                            " Passes | Threshold: " + Math.Round(_bloomFilter.BloomThreshold, 2) +
+                           "Strength: " + Math.Round(_bloomFilter.BloomStrengthMultiplier, 2) +
                            " | Half res: " + _halfRes +
                            " | Streaks: " + _bloomFilter.BloomStreakLength +
                            " | FPS : " + _avgFps;

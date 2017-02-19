@@ -98,6 +98,8 @@ namespace Bloom_Sample
         private float _bloomStrength3 = 1.0f;
         private float _bloomStrength4 = 1.0f;
         private float _bloomStrength5 = 1.0f;
+
+        public float BloomStrengthMultiplier = 1.0f;
         
         private float _radiusMultiplier = 1.0f;
 
@@ -179,7 +181,7 @@ namespace Bloom_Sample
                 if (Math.Abs(_bloomStrength - value) > 0.001f)
                 {
                     _bloomStrength = value;
-                    _bloomStrengthParameter.SetValue(_bloomStrength);
+                    _bloomStrengthParameter.SetValue(_bloomStrength * BloomStrengthMultiplier);
                 }
 
             }
@@ -250,7 +252,6 @@ namespace Bloom_Sample
             _bloomParameterScreenTexture = _bloomEffect.Parameters["ScreenTexture"];
 
             //If we are on OpenGL it's different, load the other one then!
-
             if (_bloomParameterScreenTexture == null)
             {
                 //for OpenGL / CrossPlatform
