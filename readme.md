@@ -1,4 +1,4 @@
-#BloomFilter for Monogame and XNA
+# BloomFilter for Monogame and XNA
 
 A Bloom filter usable for Monogame and XNA applications. 
 
@@ -7,11 +7,11 @@ Included is a sample solution, which shows the basic setup and how the integrati
 For the effect itself you only need the BloomFilter.cs and Shaders/BloomFilter/Bloom.fx files. 
 This is a Windows desktop build, with DirectX. 
 
-#OpenGL
+# OpenGL
 I have added and tested Crossplatform and it should work without many problems (hopefully) now. Instead of using the default directx shaders we have to switch to OpenGL shaders. 
 In shaders/bloomfilter/ there is a different .fx file called bloomCrossPlatform.fx If you rename that one to bloom.fx it should work.
 
-#Description
+# Description
 
 The default rendertargets are of Format.Color, but if you do HDR or fp16 in general you should switch them up to fp16, too.
 
