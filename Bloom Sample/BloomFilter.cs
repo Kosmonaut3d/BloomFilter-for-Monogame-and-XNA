@@ -609,6 +609,7 @@ namespace Bloom_Sample
         /// </summary>
         public void Dispose()
         {
+            _bloomRenderTarget2DMip0.Dispose();
             _bloomRenderTarget2DMip1.Dispose();
             _bloomRenderTarget2DMip2.Dispose();
             _bloomRenderTarget2DMip3.Dispose();

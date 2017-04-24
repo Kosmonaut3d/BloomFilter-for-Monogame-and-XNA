@@ -128,8 +128,10 @@ namespace Bloom_Sample
                 _bloomFilter.BloomThreshold = x;
                 _bloomFilter.BloomStrengthMultiplier = y;
             }
-            
-            float fps = (float) Math.Round(1000 / gameTime.ElapsedGameTime.TotalMilliseconds, 1);
+
+            float fps = 0;
+            if (gameTime.ElapsedGameTime.TotalMilliseconds > 0)
+            fps = (float) Math.Round(1000 / (gameTime.ElapsedGameTime.TotalMilliseconds), 1);
 
             //Set _avgFPS to the first fps value when started.
             if (_avgFps < 0.01f) _avgFps = fps;
