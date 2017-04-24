@@ -228,9 +228,9 @@ namespace Bloom_Sample
         /// <param name="content"></param>
         /// <param name="width">initial value for creating the rendertargets</param>
         /// <param name="height">initial value for creating the rendertargets</param>
-        /// <param name="renderTargetFormat">The intended format for the rendertargets. For normal, non-hdr, applications color or rgba1010102 are fine.</param>
+        /// <param name="renderTargetFormat">The intended format for the rendertargets. For normal, non-hdr, applications color or rgba1010102 are fine NOTE: For OpenGL, SurfaceFormat.Color is recommended for non-HDR applications.</param>
         /// <param name="quadRenderer">if you already have quadRenderer you may reuse it here</param>
-        public void Load(GraphicsDevice graphicsDevice, ContentManager content, int width, int height, SurfaceFormat renderTargetFormat = SurfaceFormat.Rgba1010102,  QuadRenderer quadRenderer = null)
+        public void Load(GraphicsDevice graphicsDevice, ContentManager content, int width, int height, SurfaceFormat renderTargetFormat = SurfaceFormat.Color,  QuadRenderer quadRenderer = null)
         {
             _graphicsDevice = graphicsDevice;
             UpdateResolution(width, height);
